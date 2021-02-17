@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def defaultView(request):
-    return HttpResponse("hi about product contacs tracker")
+    return render(request,'shop/index.html')
 def about(request):
     return HttpResponse("about shop")
 def contacts(request):
