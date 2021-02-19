@@ -39,7 +39,7 @@
   <div class="container" xmlns:data="http://www.w3.org/1999/xhtml">
     <!--        slideshow starts here-->
     {% for product, range, nSlides in allProds %}
-    <h4 class="my-4"> Flash sale on {{product.0.category}} - Recommeneded</h1>
+    <h4 class="my-4"> Flash sale on {{product.0.category}} - Recommeneded Items</h1>
     <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">'
         <ul class="carousel-indicators">
             <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
@@ -51,30 +51,19 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
 
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <div class="card" style="width: 18rem;">
-                <img src='/media/{{product.0.image}}' class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{product.0.product_name}}</h5>
-                  <p class="card-text">{{product.0.desc}}</p>
-                  <a href="#" class="btn btn-primary">Add To Cart</a>
-                </div>
-              </div>
-            </div>
-
-            {% for i in product|slice:"1:" %}
+            {% for i in product %}
             <div class="col-xs-3 col-sm-3 col-md-3">
               <div class="card" style="width: 18rem;">
                 <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{i.product_name}}</h5>
                   <p class="card-text">{{i.desc}}</p>
-                  <a href="#" class="btn btn-primary">Add To Cart</a>
+                  <button id ="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
                 </div>
               </div>
             </div>
 
-            {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+            {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
              </div><div class="carousel-item">
             {% endif%}
 
@@ -97,3 +86,29 @@
 
  {% endblock %}
 
+ {% block js %} 
+   <script>
+     console.log('Hi pradeep i am working')
+     if(localStorage.getItem('cart')==null) {
+       var cart={};
+     }
+     else {
+       cart=JSON.parse(localStorage.getItem('cart'));
+       document.getElementById('cart').innerHTML=Object.keys(cart).length;
+     }
+     $('.cart').click( function(){
+       console.log('clicked');
+       var idstr=this.id.toString();
+       console.log(idstr);
+       if(cart[idstr]!=undefined){
+         cart[idstr]=cart[idstr]+1;
+       }
+       else {
+         cart[idstr]=1;
+       }
+       console.log(cart);
+       localStorage.setItem('cart',JSON.stringify(cart));
+       document.getElementById('cart').innerHTML=Object.keys(cart).length;
+     });
+   </script>
+ {% endblock %}
