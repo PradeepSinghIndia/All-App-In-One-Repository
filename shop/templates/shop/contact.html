@@ -25,3 +25,12 @@
       </form>
 </div>
 {% endblock %}
+{% block js %}
+<script> 
+{% if thank %}
+     // we can create a page but i m showing alert message to user 
+     alert('Thanks for Contacting with Us  ');
+     document.location="/shop";
+     {% endif %}
+ </script>
+{%  endblock %}
