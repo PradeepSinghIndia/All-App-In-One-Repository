@@ -1,3 +1,71 @@
 {% extends 'shop/base.html' %}
-{% block title %} Order Tracking {% endblock %}
-{% block body %}  this is body of order tracking page{% endblock %}
+{% block title %} Tracker {% endblock %}
+{% block body %}
+<div class="container my-3">
+    <div class="col">
+        <h2> Enter order id and email address to track your Order</h2>
+        <br>
+        <form action="/shop/checkout/" method="post">{% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="orderid">Order Id</label>
+                    <input type="text" class="form-control" id="orderid" name="orderid" placeholder="Order id">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                </div>
+                <button type="submit" class="btn btn-primary">Track Order</button>
+            </div>
+    </div>
+    <div class="col my-4">
+        <h2> Your Order Status</h2>
+        <div class='my-4'>
+            <ul class="list-group" id="items">
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    // find out cart items from localstrorage
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        //document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+    }
+    console.log(cart);
+    var sum = 0;
+    if ($.isEmptyObject(cart)) {
+        // if cart is empty
+        mystr = `<p> Your cart is empty, please add some items to your cart before Placing Order</p>`;
+        $('#items').append(mystr);
+    }
+    else {
+        for (var item in cart) {
+            let name = cart[item][1];
+            let qty = cart[item][0];
+            sum = sum + qty;
+            mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${name}
+                    <span class="badge badge-primary badge-pill">${qty}</span>
+                       </li>`
+            $('#items').append(mystr);
+        }
+    }
+    document.getElementById('cart').innerHTML = sum;
+    $('#itemsJson').val(JSON.stringify(cart));
+    {% if thank %}
+    // we can create a page but i m showing alert message to user 
+    alert('Thnaks for ordering with us. Your order Id is {{id}}. use it to track Your order using our order tracker  ');
+    localStorage.clear();
+    document.location = "/shop";
+    {% endif %}
+</script>
+
+{% endblock %}
