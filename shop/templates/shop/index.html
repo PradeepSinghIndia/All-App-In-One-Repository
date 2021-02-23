@@ -174,7 +174,14 @@ padding-right: 0;
     a = this.id.slice(5,);
     cart[a][0] = cart[a][0] - 1;
     cart[a][0] = Math.max(0, cart[a][0]);
-    document.getElementById('val' + a).innerHTML = cart[a][0];
+    //document.getElementById('val' + a).innerHTML = cart[a][0];
+    if(cart[a][0]==0){
+      document.getElementById('val' + a).innerHTML='<button id="'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+        delete cart[a];
+    }
+    else {
+      document.getElementById('val' + a).innerHTML = cart[a][0];
+    }
     updateCart(cart);
   });
   $('.divpr').on("click", "button.plus", function () {
