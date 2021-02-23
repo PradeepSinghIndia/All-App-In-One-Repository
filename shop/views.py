@@ -57,6 +57,7 @@ def tracker(request):
     if request.method=="POST":
         orderid=request.POST.get('orderid','')
         email=request.POST.get('email','')
+        #return HttpResponse(f"{orderid} and {email}")
         try:
             order=Orders.objects.filter(order_id=orderid ,email=email)
             if len(order)>0:
@@ -64,12 +65,12 @@ def tracker(request):
                 updates=[]
                 for item in update:
                     updates.append({'text':item.update_desc ,'time':item.timestamp})
-                    response=json.dumps(updates)
-                    return HttpResponse(response)
+                    response=json.dumps([updates ,order[0].order_json] ,default=str)
+                return HttpResponse(response)
             else:
-                pass
-        except:
-            pass    
+                return HttpResponse('{}')
+        except Exception as e:
+            return HttpResponse('{}')    
         
             
     return render(request,'shop/tracker.html')
