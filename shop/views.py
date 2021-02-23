@@ -30,6 +30,7 @@ def about(request):
 
 
 def contact(request):
+    thank=False
     if request.method=="POST":
         name=request.POST.get('name','')
         email=request.POST.get('email','')
