@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block title %} Blog {% endblock %}
+{% block body %}
+
+    <div class="container mt-3">
+      <div class="row mb-2">
+    {% for items in mypost %}
+   
+      <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">{{items.title}}</strong>
+            <h3 class="mb-0">{{items.head0}}</h3>
+            <div class="mb-1 text-muted">{{items.pub_date}}</div>
+            <p class="card-text mb-auto">{{items.head1}}</p>
+            <a href="blogpost/{{items.post_id}}" class="stretched-link">Continue reading</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+          <img src='/media/{{items.thumbnail}}' class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"  aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect></img>
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:2  %}
+    </div> <div class="row mb-2">
+    {% endif%}
+   {% endfor %}
+  </div>>
+    {% endblock%}
