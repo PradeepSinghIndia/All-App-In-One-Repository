@@ -1,8 +1,8 @@
-{% extends 'shop/basic.html' %}
+{% extends 'shop/base.html' %}
 {% block title%} My Awesome Cart Tracker{% endblock %}
 {% block body %}
 <div class="container">
-    {{response}}
+    {{response}} response given by pytm 
     <div class="col my-4">
 
         <h2>Payment status regarding your order Id {{response.ORDERID}}</h2>
@@ -18,3 +18,5 @@
 {% endblock %}
 {% block js %}
 <script>
+</script>
+{% endblock %}
