@@ -1,5 +1,4 @@
 """eCommerse URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -18,8 +17,14 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static 
 from . import views
+from shop import api_views
+import shop
 
 urlpatterns = [
+    path('api/v1/product/' ,shop.api_views.ProductList.as_view()),
+    path('api/v1/product/newProduct' ,shop.api_views.ProductCreate.as_view()),
+    #path('api/v1/product/<int:id>/destroy' ,shop.api_views.ProductDestroy.as_view()),
+    path('api/v1/product/<int:id>/' ,shop.api_views.ProductRetrieveUpdateDestroy.as_view()),
     path('shop/', include('shop.urls')),
     path('blog/', include('blog.urls')),
     path('', views.index),

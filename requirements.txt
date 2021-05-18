@@ -1,6 +1,9 @@
-Python==3.6.5
+#python==3.6.5
 django==3.1.6
-jQuery==3.5.1
-bootstrap==4.2.1
-ajax==1.14.1
+#jQuery==3.5.1
+#bootstrap==4.2.1
+#ajax==1.14.1
 sqlite==3
+#pip install pycryptodome==3.4.3
+#python -m pip install Pillow
+#pip install djangorestframework-3.12.4
